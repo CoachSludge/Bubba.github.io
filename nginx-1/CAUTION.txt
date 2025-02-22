@@ -1,0 +1,3 @@
+dont fuck with nginx.conf or the whole website will shatter
+DO NOT DELETE OR MOVE FOLDERS AROUND EITHER
+just create dont delete.
