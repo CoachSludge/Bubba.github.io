@@ -25,9 +25,12 @@
     <link href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/4.1.1/animate.min.css" rel="stylesheet">
     <link href="../assets/css/styles.css" rel="stylesheet">
 </head>
-<body class="font-titan bg-gray-200 text-black min-h-screen" x-data="app()" 
-      @keydown.meta.k.prevent="$refs.searchInput.focus()"
-      @keydown.ctrl.k.prevent="$refs.searchInput.focus()">
+<body 
+    class="font-titan min-h-screen transition-colors duration-300"
+    :class="darkMode ? 'bg-black text-white' : 'bg-white text-black'" 
+    x-data="app()"
+    @keydown.meta.k.prevent="$refs.searchInput.focus()"
+    @keydown.ctrl.k.prevent="$refs.searchInput.focus()">
     <div id="particles-js" class="fixed inset-0 pointer-events-none z-0"></div>
 
 <!-- navigation -->
@@ -46,9 +49,12 @@
     <a href="../serverspage/servers" class="nav-link">Servers</a>
     <a href="../mediapage/media" class="nav-link">Media</a>
     <a href="https://discord.gg/bZ2he5kFR6" target="_blank" class="nav-link flex items-center">
-        <span>Discord</span>
+    <span>Discord</span>
     </a>
-              <a href="../donatepage/support" class="nav-link">Support Us</a>
+    <a href="../donatepage/support" class="nav-link">Support Us</a>
+	<button @click="toggleTheme" class="p-2 bg-gray-300 dark:bg-gray-800 rounded-full">
+    <span x-text="darkMode ? '☀ Light Mode' : '🌙 Dark Mode'" class="text-black dark:text-white"></span>
+	</button>
 </div>
 
             </div>
@@ -120,7 +126,7 @@
         });
     </script>
 
-    particles.js -->
+    <!-- particles.js -->
     <script src="https://cdn.jsdelivr.net/particles.js/2.0.0/particles.min.js"></script>
     <script src="../assets/js/particles.js"></script>
     
@@ -145,9 +151,21 @@
 <script>
     document.addEventListener('alpine:init', () => {
         Alpine.data('app', () => ({
-            mobileMenu: false
+            darkMode: localStorage.getItem('theme') === 'dark', // Check localStorage for theme
+            mobileMenu: false,
+            
+            toggleTheme() {
+                this.darkMode = !this.darkMode;
+                localStorage.setItem('theme', this.darkMode ? 'dark' : 'light'); 
+                document.documentElement.classList.toggle('dark', this.darkMode);
+            }
         }));
     });
+
+    // Apply theme on page load
+    if (localStorage.getItem('theme') === 'dark') {
+        document.documentElement.classList.add('dark');
+    }
 </script>
 
     </body>
