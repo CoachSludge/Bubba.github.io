@@ -11,21 +11,27 @@
     <script src="https://cdnjs.cloudflare.com/ajax/libs/alpinejs/3.10.3/cdn.min.js" defer></script>
     <script src="https://cdn.tailwindcss.com"></script>
     <script src="sources.js"></script>
-<script>
-  tailwind.config = {
-      theme: {
-          extend: {
-              fontFamily: {
-                  sans: ['Poppins', 'sans-serif'],
-                  titan: ['Titanfall', 'sans-serif'],
-              },
-          },
-      },
-  }
-</script>
+			<script>
+        tailwind.config = {
+            darkMode: 'class', // Ensures Tailwind dark mode works correctly
+            theme: {
+                extend: {
+                    fontFamily: {
+                        sans: ['Poppins', 'sans-serif'],
+                        titan: ['Titanfall', 'sans-serif'],
+                    },
+                },
+            },
+        }
+    </script>
 <link href="../assets/css/styles.css" rel="stylesheet">
+<script src="../assets/js/darkmode.js" defer></script>
 </head>
-<body class="font-titan bg-gray-200 text-black min-h-screen" x-data="app()">
+<body class="font-titan bg-white text-black min-h-screen transition-colors duration-300 dark:bg-black dark:text-white"
+      x-data="app()" 
+      x-init="document.documentElement.classList.toggle('dark', localStorage.getItem('theme') === 'dark')"
+      @keydown.meta.k.prevent="$refs.searchInput.focus()"
+      @keydown.ctrl.k.prevent="$refs.searchInput.focus()">
     <div id="particles-js" class="fixed inset-0 pointer-events-none z-0"></div>
 
 
@@ -49,6 +55,12 @@
                                   x-text="watchLaterCount"></span>
                         </button>
                     </div>
+                   	<div class="hidden md:flex space-x-6">
+                    <button id="themeToggle" class="p-2 bg-gray-300 dark:bg-gray-800 rounded-full">
+                        <span id="themeText" class="text-black dark:text-white">🌙 Dark Mode</span>
+                    </button>
+
+        					</div> 
                 </div>
                 <!-- mobile menu button -->
                 <button @click="mobileMenu = !mobileMenu" class="md:hidden text-gray-300 hover:text-black">
