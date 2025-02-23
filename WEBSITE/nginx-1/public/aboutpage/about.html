@@ -23,9 +23,12 @@
     <link href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/4.1.1/animate.min.css" rel="stylesheet">
     <link href="../assets/css/styles.css" rel="stylesheet">
 </head>
-<body class="font-titan bg-gray-200 text-black min-h-screen" x-data="app()" 
-      @keydown.meta.k.prevent="$refs.searchInput.focus()"
-      @keydown.ctrl.k.prevent="$refs.searchInput.focus()">
+<body 
+    class="font-titan min-h-screen transition-colors duration-300"
+    :class="darkMode ? 'bg-black text-white' : 'bg-gray-200 text-black'" 
+    x-data="app()"
+    @keydown.meta.k.prevent="$refs.searchInput.focus()"
+    @keydown.ctrl.k.prevent="$refs.searchInput.focus()">
     <div id="particles-js" class="fixed inset-0 pointer-events-none z-0"></div>
 
 <!-- navigation -->
@@ -39,13 +42,16 @@
                   </a>
 <div class="hidden md:flex space-x-6">
     <a href="../aboutpage/about" class="nav-link">About</a>
-        <a href="../faqpage/faq" class="nav-link">FAQ</a>
+    <a href="../faqpage/faq" class="nav-link">FAQ</a>
     <a href="../serverspage/servers" class="nav-link">Servers</a>
     <a href="../mediapage/media" class="nav-link">Media</a>
     <a href="https://discord.gg/bZ2he5kFR6" target="_blank" class="nav-link flex items-center">
-        <span>Discord</span>
+    <span>Discord</span>
     </a>
-              <a href="../donatepage/support" class="nav-link">Support Us</a>
+    <a href="../donatepage/support" class="nav-link">Support Us</a>
+	<button @click="toggleTheme" class="p-2 bg-gray-300 dark:bg-gray-800 rounded-full">
+    <span x-text="darkMode ? '☀ Light Mode' : '🌙 Dark Mode'" class="text-black dark:text-white"></span>
+	</button>
 </div>
             </div>
             <div class="flex items-center space-x-4">
@@ -131,11 +137,27 @@
     <div id="supporters-list" class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-6"></div>
 </div>
 <script>
+    document.addEventListener('DOMContentLoaded', () => {
+        const theme = localStorage.getItem('theme');
+        if (theme === 'dark') {
+            document.documentElement.classList.add('dark');
+        } else {
+            document.documentElement.classList.remove('dark');
+        }
+    });
+
     document.addEventListener('alpine:init', () => {
         Alpine.data('app', () => ({
-            mobileMenu: false
+            darkMode: localStorage.getItem('theme') === 'dark',
+
+            toggleTheme() {
+                this.darkMode = !this.darkMode;
+                localStorage.setItem('theme', this.darkMode ? 'dark' : 'light'); 
+                document.documentElement.classList.toggle('dark', this.darkMode);
+            }
         }));
     });
 </script>
+
     </body>
 </html>
