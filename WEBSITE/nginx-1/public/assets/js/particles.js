@@ -43,7 +43,7 @@ document.addEventListener("DOMContentLoaded", function () {
         distance: 150,
         color: particleColor,
         opacity: particleOpacity,
-        width: 1
+        width: 10
       },
       move: {
         enable: true,
@@ -72,7 +72,7 @@ document.addEventListener("DOMContentLoaded", function () {
         grab: {
           distance: 140,
           line_linked: {
-            opacity: 0.5
+            opacity: 0
           }
         },
         push: {
