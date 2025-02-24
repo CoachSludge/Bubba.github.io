@@ -88,6 +88,9 @@
                               class="bg-red-600 text-black text-xs flex items-center justify-center rounded-full w-6 h-6" 
                               x-text="watchLaterCount"></span>
                     </button>
+                    <button @click="toggleTheme" class="p-2 bg-gray-300 dark:bg-gray-800 rounded-full">
+                      <span x-text="darkMode ? '☀ Light Mode' : '🌙 Dark Mode'" class="text-black dark:text-white"></span>
+                  	</button>
                 </div>
             </div>
         </div>
