@@ -22,6 +22,25 @@
 </script>
     <link href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/4.1.1/animate.min.css" rel="stylesheet">
     <link href="../assets/css/styles.css" rel="stylesheet">
+    	  <script>
+    document.addEventListener('alpine:init', () => {
+        Alpine.data('app', () => ({
+            darkMode: localStorage.getItem('theme') === 'dark', // Check localStorage for theme
+            mobileMenu: false,
+            
+            toggleTheme() {
+                this.darkMode = !this.darkMode;
+                localStorage.setItem('theme', this.darkMode ? 'dark' : 'light'); 
+                document.documentElement.classList.toggle('dark', this.darkMode);
+            }
+        }));
+    });
+
+    // Apply theme on page load
+    if (localStorage.getItem('theme') === 'dark') {
+        document.documentElement.classList.add('dark');
+    }
+</script>
 </head>
 <body 
     class="font-titan min-h-screen transition-colors duration-300"
@@ -40,6 +59,7 @@
                       <img src="../assets/logo.png" alt="Bubba Logo" class="h-8 w-8 md:h-10 md:w-10">
                       <span class="text-2xl md:text-3xl font-bold bg-clip-text text-transparent bg-gradient-to-r from-red-400 to-black">Bubba</span>
                   </a>
+                <!-- Navigation links -->
 <div class="hidden md:flex space-x-6">
     <a href="about" class="nav-link">About</a>
     <a href="faq" class="nav-link">FAQ</a>
@@ -53,6 +73,7 @@
     <span x-text="darkMode ? '☀ Light Mode' : '🌙 Dark Mode'" class="text-black dark:text-white"></span>
 	</button>
 </div>
+
             </div>
             <div class="flex items-center space-x-4">
                 <!-- Mobile menu button -->
@@ -80,7 +101,9 @@
                 <a href="media" class="text-left px-4 py-2 hover:bg-gray-300 rounded-lg transition-colors">Media</a>
                 <a href="https://discord.gg/bZ2he5kFR6" class="text-left px-4 py-2 hover:bg-gray-300 rounded-lg transition-colors">Discord</a>
                 <a href="support" class="text-left px-4 py-2 hover:bg-gray-300 rounded-lg transition-colors">Support Us</a>
-                
+                <button @click="toggleTheme" class="p-2 bg-gray-300 dark:bg-gray-800 rounded-full">
+                  <span x-text="darkMode ? '☀ Light Mode' : '🌙 Dark Mode'" class="text-black dark:text-white"></span>
+                </button>
             </div>
         </div>
     </div>
@@ -136,28 +159,7 @@
     </p>
     <div id="supporters-list" class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-6"></div>
 </div>
-<script>
-    document.addEventListener('DOMContentLoaded', () => {
-        const theme = localStorage.getItem('theme');
-        if (theme === 'dark') {
-            document.documentElement.classList.add('dark');
-        } else {
-            document.documentElement.classList.remove('dark');
-        }
-    });
 
-    document.addEventListener('alpine:init', () => {
-        Alpine.data('app', () => ({
-            darkMode: localStorage.getItem('theme') === 'dark',
-
-            toggleTheme() {
-                this.darkMode = !this.darkMode;
-                localStorage.setItem('theme', this.darkMode ? 'dark' : 'light'); 
-                document.documentElement.classList.toggle('dark', this.darkMode);
-            }
-        }));
-    });
-</script>
 
     </body>
 </html>
