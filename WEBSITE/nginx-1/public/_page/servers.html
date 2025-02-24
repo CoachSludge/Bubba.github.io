@@ -102,7 +102,9 @@
                 <a href="media" class="text-left px-4 py-2 hover:bg-gray-300 rounded-lg transition-colors">Media</a>
                 <a href="https://discord.gg/bZ2he5kFR6" class="text-left px-4 py-2 hover:bg-gray-300 rounded-lg transition-colors">Discord</a>
                 <a href="support" class="text-left px-4 py-2 hover:bg-gray-300 rounded-lg transition-colors">Support Us</a>
-                
+                <button @click="toggleTheme" class="p-2 bg-gray-300 dark:bg-gray-800 rounded-full">
+                  <span x-text="darkMode ? '☀ Light Mode' : '🌙 Dark Mode'" class="text-black dark:text-white"></span>
+                </button>
             </div>
         </div>
     </div>
